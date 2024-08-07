@@ -34,8 +34,10 @@
   ],
   "scripts": {
     "build": "modern build",
+    "build:rslib": "node ./bin/rslib.js build",
     "dev": "modern build --watch",
-    "prebundle": "prebundle"
+    "prebundle": "prebundle",
+    "rslib:help": "node ./bin/rslib.js --help"
   },
   "dependencies": {
     "@rsbuild/core": "1.0.1-beta.10",
