@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should downgrade class private method by default 1`] = `
+"class Foo {
+    constructor(){
+        this.#bar();
+    }
+    #bar() {}
+}
+export { Foo };
+"
+`;
+
+exports[`should downgrade class private method with output.syntax config 1`] = `
+"function _check_private_redeclaration(obj, privateCollection) {
+    if (privateCollection.has(obj)) throw new TypeError(\\"Cannot initialize the same private elements twice on an object\\");
+}
+function _class_private_method_get(receiver, privateSet, fn) {
+    if (!privateSet.has(receiver)) throw new TypeError(\\"attempted to get private field on non-instance\\");
+    return fn;
+}
+function _class_private_method_init(obj, privateSet) {
+    _check_private_redeclaration(obj, privateSet);
+    privateSet.add(obj);
+}
+var _bar = /*#__PURE__*/ new WeakSet();
+class Foo {
+    constructor(){
+        _class_private_method_init(this, _bar);
+        _class_private_method_get(this, _bar, bar).call(this);
+    }
+}
+function bar() {}
+export { Foo };
+"
+`;
+
+exports[`should downgrade class private method with output.syntax config 2`] = `
+"class Foo {
+    constructor(){
+        this.#bar();
+    }
+    #bar() {}
+}
+export { Foo };
+"
+`;

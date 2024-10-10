@@ -1,9 +1,9 @@
 import type { RsbuildConfig } from '@rsbuild/core';
+import type { PluginDtsOptions } from 'rsbuild-plugin-dts';
 
 export type Format = 'esm' | 'cjs' | 'umd';
 
-export type EcmaScriptVersion =
-  | 'esnext'
+export type FixedEcmaVersions =
   | 'es5'
   | 'es6'
   | 'es2015'
@@ -14,8 +14,13 @@ export type EcmaScriptVersion =
   | 'es2020'
   | 'es2021'
   | 'es2022'
-  | 'es2023'
-  | 'es2024';
+  | 'es2023';
+export type LatestEcmaVersions = 'es2024' | 'esnext';
+export type EcmaScriptVersion = FixedEcmaVersions | LatestEcmaVersions;
+
+export type RsbuildConfigOutputTarget = NonNullable<
+  RsbuildConfig['output']
+>['target'];
 
 export type Syntax =
   // ECMAScript versions as an common used addition to browserslist query
@@ -24,11 +29,9 @@ export type Syntax =
   | string[];
 
 export type Dts =
-  | {
-      bundle: boolean;
-      distPath?: string;
-      abortOnError?: boolean;
-    }
+  | (Pick<PluginDtsOptions, 'bundle' | 'distPath' | 'abortOnError'> & {
+      autoExtension?: boolean;
+    })
   | false;
 
 export type AutoExternal =
@@ -39,15 +42,31 @@ export type AutoExternal =
       peerDependencies?: boolean;
     };
 
+export type BannerAndFooter = {
+  js?: string;
+  css?: string;
+  dts?: string;
+};
+
+export type Redirect = {
+  // TODO: support other redirects
+  // alias?: boolean;
+  style?: boolean;
+  // asset?: boolean;
+  // autoExtension?: boolean;
+};
+
 export interface LibConfig extends RsbuildConfig {
   bundle?: boolean;
   format?: Format;
   autoExtension?: boolean;
   autoExternal?: AutoExternal;
-  output?: RsbuildConfig['output'] & {
-    /** Support esX and browserslist query */
-    syntax?: Syntax;
-  };
+  redirect?: Redirect;
+  /** Support esX and browserslist query */
+  syntax?: Syntax;
+  externalHelpers?: boolean;
+  banner?: BannerAndFooter;
+  footer?: BannerAndFooter;
   dts?: Dts;
 }
 

@@ -12,11 +12,32 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
         "distPath": {
           "js": "./",
         },
+        "externals": [
+          [Function],
+        ],
         "filename": {
           "js": "[name].js",
         },
         "filenameHash": false,
-        "minify": false,
+        "minify": {
+          "css": false,
+          "js": true,
+          "jsOptions": {
+            "minimizerOptions": {
+              "compress": {
+                "dead_code": true,
+                "defaults": false,
+                "toplevel": true,
+                "unused": true,
+              },
+              "format": {
+                "comments": "all",
+              },
+              "mangle": false,
+              "minify": false,
+            },
+          },
+        },
         "overrideBrowserslist": [
           "last 1 node versions",
           "last 1 Chrome versions",
@@ -40,25 +61,68 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
         "rspack": [
           {
             "experiments": {
+              "rspackFuture": {
+                "bundlerInfo": {
+                  "force": false,
+                },
+              },
+            },
+            "optimization": {
+              "moduleIds": "named",
+              "nodeEnv": false,
+            },
+            "resolve": {
+              "extensionAlias": {
+                ".cjs": [
+                  ".cts",
+                  ".cjs",
+                ],
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                  ".js",
+                  ".jsx",
+                ],
+                ".jsx": [
+                  ".tsx",
+                  ".jsx",
+                ],
+                ".mjs": [
+                  ".mts",
+                  ".mjs",
+                ],
+              },
+            },
+          },
+          {
+            "experiments": {
               "outputModule": true,
             },
             "externalsType": "module-import",
             "module": {
               "parser": {
                 "javascript": {
+                  "importDynamic": false,
                   "importMeta": false,
+                  "requireAsExpression": false,
+                  "requireDynamic": false,
+                  "requireResolve": false,
                 },
               },
             },
             "optimization": {
               "concatenateModules": true,
+              "sideEffects": "flag",
             },
             "output": {
               "chunkFormat": "module",
+              "chunkLoading": "import",
               "library": {
                 "type": "modern-module",
               },
               "module": true,
+              "wasmLoading": "fetch",
+              "workerChunkLoading": "import",
             },
           },
           [Function],
@@ -68,18 +132,21 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
             ],
           },
           {
-            "experiments": {
-              "rspackFuture": {
-                "bundlerInfo": {
-                  "force": false,
-                },
+            "resolve": {
+              "extensionAlias": {
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                ],
               },
-            },
-            "optimization": {
-              "moduleIds": "named",
             },
           },
         ],
+        "swc": {
+          "jsc": {
+            "externalHelpers": false,
+          },
+        },
       },
     },
     "format": "esm",
@@ -98,7 +165,25 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
           "js": "[name].js",
         },
         "filenameHash": false,
-        "minify": false,
+        "minify": {
+          "css": false,
+          "js": true,
+          "jsOptions": {
+            "minimizerOptions": {
+              "compress": {
+                "dead_code": true,
+                "defaults": false,
+                "toplevel": true,
+                "unused": true,
+              },
+              "format": {
+                "comments": "all",
+              },
+              "mangle": false,
+              "minify": false,
+            },
+          },
+        },
         "overrideBrowserslist": [
           "last 1 node versions",
           "last 1 Chrome versions",
@@ -109,6 +194,12 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
           "not dead",
         ],
       },
+      "plugins": [
+        {
+          "name": "rsbuild-plugin-cjs-shim",
+          "setup": [Function],
+        },
+      ],
       "source": {
         "alias": {
           "bar": "bar/cjs",
@@ -125,22 +216,6 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
         "htmlPlugin": false,
         "rspack": [
           {
-            "externalsType": "commonjs",
-            "output": {
-              "chunkFormat": "commonjs",
-              "iife": false,
-              "library": {
-                "type": "commonjs",
-              },
-            },
-          },
-          [Function],
-          {
-            "target": [
-              "web",
-            ],
-          },
-          {
             "experiments": {
               "rspackFuture": {
                 "bundlerInfo": {
@@ -150,9 +225,77 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
             },
             "optimization": {
               "moduleIds": "named",
+              "nodeEnv": false,
+            },
+            "resolve": {
+              "extensionAlias": {
+                ".cjs": [
+                  ".cts",
+                  ".cjs",
+                ],
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                  ".js",
+                  ".jsx",
+                ],
+                ".jsx": [
+                  ".tsx",
+                  ".jsx",
+                ],
+                ".mjs": [
+                  ".mts",
+                  ".mjs",
+                ],
+              },
+            },
+          },
+          {
+            "externalsType": "commonjs",
+            "module": {
+              "parser": {
+                "javascript": {
+                  "importDynamic": false,
+                  "importMeta": false,
+                  "requireAsExpression": false,
+                  "requireDynamic": false,
+                  "requireResolve": false,
+                },
+              },
+            },
+            "output": {
+              "chunkFormat": "commonjs",
+              "chunkLoading": "require",
+              "iife": false,
+              "library": {
+                "type": "commonjs",
+              },
+              "wasmLoading": "async-node",
+              "workerChunkLoading": "async-node",
+            },
+          },
+          [Function],
+          {
+            "target": [
+              "web",
+            ],
+          },
+          {
+            "resolve": {
+              "extensionAlias": {
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                ],
+              },
             },
           },
         ],
+        "swc": {
+          "jsc": {
+            "externalHelpers": false,
+          },
+        },
       },
     },
     "format": "cjs",
@@ -171,7 +314,25 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
           "js": "[name].js",
         },
         "filenameHash": false,
-        "minify": false,
+        "minify": {
+          "css": false,
+          "js": true,
+          "jsOptions": {
+            "minimizerOptions": {
+              "compress": {
+                "dead_code": true,
+                "defaults": false,
+                "toplevel": true,
+                "unused": true,
+              },
+              "format": {
+                "comments": "all",
+              },
+              "mangle": false,
+              "minify": false,
+            },
+          },
+        },
         "overrideBrowserslist": [
           "last 1 node versions",
           "last 1 Chrome versions",
@@ -194,7 +355,49 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
         "htmlPlugin": false,
         "rspack": [
           {
+            "experiments": {
+              "rspackFuture": {
+                "bundlerInfo": {
+                  "force": false,
+                },
+              },
+            },
+            "optimization": {
+              "moduleIds": "named",
+              "nodeEnv": false,
+            },
+            "resolve": {
+              "extensionAlias": {
+                ".cjs": [
+                  ".cts",
+                  ".cjs",
+                ],
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                  ".js",
+                  ".jsx",
+                ],
+                ".jsx": [
+                  ".tsx",
+                  ".jsx",
+                ],
+                ".mjs": [
+                  ".mts",
+                  ".mjs",
+                ],
+              },
+            },
+          },
+          {
             "externalsType": "umd",
+            "module": {
+              "parser": {
+                "javascript": {
+                  "importMeta": false,
+                },
+              },
+            },
             "output": {
               "library": {
                 "type": "umd",
@@ -208,18 +411,21 @@ exports[`Should compose create Rsbuild config correctly > Merge Rsbuild config 1
             ],
           },
           {
-            "experiments": {
-              "rspackFuture": {
-                "bundlerInfo": {
-                  "force": false,
-                },
+            "resolve": {
+              "extensionAlias": {
+                ".js": [
+                  ".ts",
+                  ".tsx",
+                ],
               },
-            },
-            "optimization": {
-              "moduleIds": "named",
             },
           },
         ],
+        "swc": {
+          "jsc": {
+            "externalHelpers": false,
+          },
+        },
       },
     },
     "format": "umd",

@@ -34,9 +34,14 @@
       "enabled": false
     }
   },
+  "css": {
+    "formatter": {
+      "enabled": false
+    }
+  },
   "linter": {
     "enabled": true,
-    "ignore": ["./e2e/cases/**/*/src/*"],
+    "ignore": ["./tests/integration/**/*/src/*"],
     "rules": {
       "recommended": true,
       "style": {

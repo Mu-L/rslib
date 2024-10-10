@@ -11,6 +11,8 @@ coverage/
 doc_build/
 playwright-report/
 tsconfig.tsbuildinfo
+test-temp-*
+test-results
 
 .vscode/**/*
 !.vscode/settings.json

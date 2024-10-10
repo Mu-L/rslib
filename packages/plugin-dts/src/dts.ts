@@ -26,6 +26,7 @@ export const calcBundledPackages = (options: {
     dependencies?: Record<string, string>;
     peerDependencies?: Record<string, string>;
     devDependencies?: Record<string, string>;
+    optionalDependencies?: Record<string, string>;
   };
 
   try {
@@ -42,6 +43,7 @@ export const calcBundledPackages = (options: {
     ? {
         dependencies: true,
         peerDependencies: true,
+        optionalDependencies: true,
         devDependencies: false,
         ...(autoExternal === true ? {} : autoExternal),
       }
@@ -112,6 +114,8 @@ export async function generateDts(data: DtsGenOptions): Promise<void> {
     dtsExtension = '.d.ts',
     autoExternal = true,
     userExternals,
+    banner,
+    footer,
   } = data;
   logger.start(`Generating DTS... ${color.gray(`(${name})`)}`);
   const configPath = ts.findConfigFile(cwd, ts.sys.fileExists, tsconfigPath);
@@ -133,7 +137,9 @@ export async function generateDts(data: DtsGenOptions): Promise<void> {
     if (bundle) {
       return ensureTempDeclarationDir(cwd);
     }
-    return distPath ? distPath : rawCompilerOptions.declarationDir ?? './dist';
+    return distPath
+      ? distPath
+      : (rawCompilerOptions.declarationDir ?? './dist');
   };
 
   const declarationDir = getDeclarationDir(bundle!, distPath);
@@ -168,6 +174,8 @@ export async function generateDts(data: DtsGenOptions): Promise<void> {
         },
         tsconfigPath,
         dtsExtension,
+        banner,
+        footer,
         bundledPackages: calcBundledPackages({
           autoExternal,
           cwd,
@@ -190,6 +198,8 @@ export async function generateDts(data: DtsGenOptions): Promise<void> {
       configPath,
       declarationDir,
       dtsExtension,
+      banner,
+      footer,
     },
     onComplete,
     bundle,

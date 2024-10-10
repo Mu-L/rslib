@@ -1,44 +1,44 @@
 {
   $schema: 'https://docs.renovatebot.com/renovate-schema.json',
   extends: ['config:recommended', 'schedule:weekly'],
-  ignorePaths: ['**/tests/**', '**/node_modules/**'],
+  ignorePaths: ['**/tests/**', '**/node_modules/**', '**/e2e/cases/**'],
   packageRules: [
     // Use chore as semantic commit type for commit messages
     {
-      matchPackagePatterns: ['*'],
+      matchPackageNames: ['**'],
       semanticCommitType: 'chore',
       // always bump package.json
       rangeStrategy: 'bump',
     },
     {
       groupName: 'babel',
-      packagePatterns: ['babel'],
+      matchPackageNames: ['**babel**'],
       groupSlug: 'babel',
     },
     {
       groupName: 'rsbuild',
-      packagePatterns: ['rsbuild'],
+      matchPackageNames: ['@rsbuild/**'],
       groupSlug: 'rsbuild',
     },
     {
       groupName: 'rspress',
-      packagePatterns: ['rspress'],
+      matchPackageNames: ['@rspress/**'],
       groupSlug: 'rspress',
     },
     {
       groupName: 'modern-js',
-      packagePatterns: ['modern-js'],
+      matchPackageNames: ['@modern-js/**'],
       groupSlug: 'modern-js',
     },
     {
       groupName: 'types',
-      packagePatterns: ['^@types/'],
+      matchPackageNames: ['@types/**'],
       groupSlug: 'types',
     },
     {
       groupName: 'all patch dependencies',
       groupSlug: 'all-patch',
-      matchPackagePatterns: ['*'],
+      matchPackageNames: ['**'],
       matchUpdateTypes: ['patch'],
     },
     // manually update peer dependencies
@@ -50,8 +50,11 @@
   ignoreDeps: [
     // manually update some packages
     'pnpm',
+    '@rspack/core',
+    '@rspack/core-canary',
     // align Node.js version minimum requirements
     '@types/node',
     'node',
   ],
+  postUpdateOptions: ['pnpmDedupe'],
 }

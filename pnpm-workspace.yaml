@@ -1,7 +1,8 @@
 packages:
+  - 'website'
   - 'packages/*'
   - 'scripts/*'
-  - 'e2e/**'
+  - 'tests/**'
   - 'examples/**'
   - '!**/compiled/**'
   - '!**/dist-types/**'

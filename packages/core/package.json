@@ -1,8 +1,8 @@
 {
   "name": "@rslib/core",
-  "version": "0.0.2",
+  "version": "0.0.10",
   "description": "The Rspack-based library build tool.",
-  "homepage": "https://rslib.dev",
+  "homepage": "https://lib.rsbuild.dev",
   "bugs": {
     "url": "https://github.com/web-infra-dev/rslib/issues"
   },
@@ -37,21 +37,23 @@
     "prebundle": "prebundle"
   },
   "dependencies": {
-    "@rsbuild/core": "1.0.1-beta.15",
+    "@rsbuild/core": "1.0.12",
     "rsbuild-plugin-dts": "workspace:*"
   },
   "devDependencies": {
     "@rslib/tsconfig": "workspace:*",
+    "@rspack/core": "1.0.8",
     "@types/fs-extra": "^11.0.4",
     "commander": "^12.1.0",
     "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
-    "memfs": "^4.11.1",
-    "picocolors": "1.0.1",
-    "prebundle": "1.1.0",
-    "rslib": "npm:@rslib/core@0.0.2",
-    "rslog": "^1.2.2",
-    "typescript": "^5.5.4"
+    "memfs": "^4.13.0",
+    "picocolors": "1.1.0",
+    "prebundle": "1.2.2",
+    "rslib": "npm:@rslib/core@0.0.9",
+    "rslog": "^1.2.3",
+    "tsconfck": "3.1.4",
+    "typescript": "^5.6.3"
   },
   "peerDependencies": {
     "@microsoft/api-extractor": "^7",

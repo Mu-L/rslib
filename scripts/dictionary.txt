@@ -8,12 +8,14 @@ brotli
 browserslistrc
 bundleless
 caniuse
+CEHQ
 chunkhash
 Chunktmp
 cjsx
 classname
 codegen
 codesandbox
+codspeed
 compat
 consolas
 contentful
@@ -23,10 +25,12 @@ craco
 crossorigin
 ctsx
 datauri
+dedupe
 deepmerge
 distpath
 docgen
 dogfooding
+dorny
 envinfo
 estree
 facti
@@ -61,6 +65,7 @@ mjsx
 modularly
 mtsx
 napi
+nodenext
 nolyfill
 ntqry
 onclosetag
@@ -84,6 +89,7 @@ preflights
 prefresh
 preprocessors
 pxtorem
+quxx
 rebranded
 rolldown
 rsbuild
@@ -116,6 +122,7 @@ templating
 transpiling
 treeshaking
 tsbuildinfo
+tsconfck
 tsdoc
 tsup
 unocss
